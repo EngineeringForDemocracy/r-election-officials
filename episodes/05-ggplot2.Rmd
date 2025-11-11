@@ -5,9 +5,13 @@ exercises: 35
 source: Rmd
 ---
 
-```{r glosario, include=FALSE,eval=FALSE}
-library('sf')
+```{r glosario, include=FALSE}
+
 library(glosario)
+```
+
+```{r sf, include=FALSE,eval=FALSE}
+library('sf')
 ```
 
 :::: instructor
@@ -1098,7 +1102,7 @@ westeros_voting_sf <- st_as_sf(westeros_voting)
 ```
 
 Your second step is to determine where your region labels will sit on your map! 
-This is completed by calculating the `r gdef('centroid', 'centroids')`, or center 
+This is completed by calculating the`r `gdef('centroid', 'centroids')`, or center 
 points, of each region. Below, we will calculate the centroid of each region and 
 convert its x and y coordinates to columns for easier access:
 ```{r calc-coordinates,eval=FALSE}

@@ -743,7 +743,7 @@ had the highest proportion of check-ins from DEVICE_001 and DEVICE_002?
 
 ## Solution
 
-```{r barplot-device-hour}
+```{r barplot-device-hour,eval = False}
 #calculate proportions
 prop_hour_device <- data %>%
   filter(device %in% c("DEVICE_001", "DEVICE_002", "DEVICE_003", "DEVICE_004")) %>%
@@ -783,7 +783,7 @@ and use proper axis labels!
 
 ## Solution
 
-```{r barplot-challenge}
+```{r barplot-challenge,eval = False}
 #retrieve top devices
 top_devices <- data %>%
   count(device) %>%
@@ -819,7 +819,7 @@ number of bars increase.
 user to split one plot into multiple plots based on a factor included
 in the data set. Below, we can use this technique to split our bar plot of check-in 
 proportions by hour for each device so each device has its own panel:
-```{r facet-fix}
+```{r facet-fix,eval = False}
 #generate plot
 prop_hour_device %>%
   mutate(device = str_remove(device, "DEVICE_")) %>%
@@ -840,7 +840,7 @@ Usually plots with white background look more readable when printed. We can set
 the background to white using the function `theme_bw()`. Additionally, we can remove
 the grid:
 
-```{r facet-theme-bw, purl=FALSE}
+```{r facet-theme-bw, purl=FALSE,eval = False}
 prop_hour_device %>%
   mutate(device = str_remove(device, "DEVICE_")) %>%
   ggplot(aes(x = hour, y = prop, fill = device)) +
@@ -857,7 +857,7 @@ prop_hour_device %>%
 
 We can also facet by location to see patterns of device proportions within different 
 locations:
-```{r facet-location-device-fixed}
+```{r facet-location-device-fixed,eval = False}
 #creates new data using location information
 prop_hour_device_loc <- data %>%
   filter(device %in% c("DEVICE_001", "DEVICE_002", "DEVICE_003", "DEVICE_004")) %>%
@@ -899,7 +899,7 @@ This is due to histograms'unique ability to allow for the sorting of continuous
 variables into bins, making it easier to identify trends.
 
 First, let's look at the bar chart below:
-```{r bar-hours}
+```{r bar-hours,eval = False}
 data %>%
   ggplot(aes(x = hour)) +
   geom_bar(color = "black", fill = "lightblue", ) +
@@ -911,7 +911,7 @@ data %>%
 
 Now, let's create a similar plot displaying the distribution of check-ins by 
 hour using a histogram instead of a bar plot: 
-```{r histogram-hours}
+```{r histogram-hours,eval = False}
 data %>%
   ggplot(aes(x = hour)) +
   geom_histogram(color = "black", fill = "lightblue", binwidth = 1) +
@@ -925,7 +925,7 @@ As you may see, the plots look almost identical, save for the histogram having
 bars that touch (since the data is continuous and not discrete/categorical).
 
 With histograms, however, we can create a more granular view by using smaller bins:
-```{r histogram-time-bins}
+```{r histogram-time-bins,eval = False}
 #create a decimal representation of the data (hour + minutes)
 checkins_with_dec_hour <- data %>%
   mutate(dec_hour = hour + minute/60)

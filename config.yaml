@@ -69,8 +69,8 @@ episodes:
 - 01-intro-to-r.Rmd
 - 02-starting-with-data.Rmd
 - 03-dplyr.Rmd
-- 04-tidyr.RMd
-- 05-ggplot2.Rmd
+- 04-tidyr.Rmd
+# - 05-ggplot2.Rmd
 
 # Information for Learners
 learners:

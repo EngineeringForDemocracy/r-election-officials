@@ -10,7 +10,7 @@
 # incubator: The Carpentries Incubator
 # Note that you can also use a custom carpentry type. For more info,
 # see the documentation: https://carpentries.github.io/sandpaper-docs/editing.html
-carpentry: 'incubator'
+carpentry: 'edi-plej'
 
 # Custom carpentry description
 # This will be used as the alt text for the logo
@@ -64,21 +64,26 @@ contact: 'team@carpentries.org'
 # - another-learner.md
 
 # Order of episodes in your lesson
-episodes: 
-- introduction.Rmd
+episodes:
+- 00-intro.Rmd
+- 01-intro-to-r.Rmd
+- 02-starting-with-data.Rmd
+- 03-dplyr.Rmd
+- 04-tidyr.RMd
+- 05-ggplot2.Rmd
 
 # Information for Learners
-learners: 
+learners:
 
 # Information for Instructors
-instructors: 
+instructors:
 
 # Learner Profiles
-profiles: 
+profiles:
 
 # Customisation ---------------------------------------------
 #
 # This space below is where custom yaml items (e.g. pinning
 # sandpaper and varnish versions) should live
-
-
+varnish: EngineeringForDemocracy/varnish
+glosario: true

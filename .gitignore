@@ -7,7 +7,6 @@ site/*
 .Rhistory
 .Rapp.history
 *.Rproj
-renv/
 
 # Session Data files
 .RData

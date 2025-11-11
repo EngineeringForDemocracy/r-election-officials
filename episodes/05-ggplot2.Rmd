@@ -58,7 +58,7 @@ version of the data we created at the end of "Starting With Data".
 In practice, sampling data before visualization is NOT required; however, due to 
 the size of our original data set, using a smaller, sampled data set will allow 
 us to generate plots much faster!
-```{r, eval=TRUE, message=FALSE, purl=FALSE}
+```{r,eval = False, message=FALSE, purl=FALSE}
 data <- read_csv(here("data", "checkin_sample_plotting.csv"))
 ```
 
@@ -954,12 +954,12 @@ data using the Game of Thrones Dataset!
 
 First, let's load the `sf` package. This package allows gpplot2 to work with 
 spacial data (like shape files):
-```{r load-sf, eval=TRUE}
+```{r load-sf,eval = False}
 library(sf)
 ```
 
 Next, let's load in the map data containing our map polygons:
-```{r load-got-map-data, eval=TRUE}
+```{r load-got-map-data,eval = False}
 #read in data and save to object
 westeros_map <- st_read(here("data", "polygons_GoT.geojson"), quiet = TRUE)
 
@@ -970,7 +970,7 @@ head(westeros_map, 3)
 Finally, let's load the voting data and link it to our map data using the `merge` 
 function. This function allows for two tibbles to be linked based off of a
 specified variable (in our case, the "id"):
-```{r load-voting-data, eval=TRUE}
+```{r load-voting-data,eval = False}
 #read in data and save to object
 got_votes <- read_csv(here("data", "voting_GoT.csv"))
 
@@ -991,7 +991,7 @@ data and use that for the graph!
 
 Below, we will be using `geom_sf` on our combined data and use Jon_Snow_pct to 
 determine the level of support Jon Snow is getting from each region:
-```{r join-data-and-map, eval=TRUE}
+```{r join-data-and-map,eval = False}
 ggplot() +
   geom_sf(data = westeros_voting, aes(fill = Jon_Snow_pct)) +
   scale_fill_gradient(low = "lightblue", high = "darkblue") +
@@ -1002,7 +1002,7 @@ ggplot() +
 
 Next, let's do the same for Daenerys Targaryen, but with red instead of blue for
 the color scale:
-```{r map-daenerys-support, eval=TRUE}
+```{r map-daenerys-support,eval = False}
 # Create a map colored by Daenerys support
 ggplot() +
   geom_sf(data = westeros_voting, aes(fill = Daenerys_Targaryen_pct)) +
@@ -1021,7 +1021,7 @@ of support a single candidate received.
 This can be achieved by determining which candidate received the most votes and 
 filling that section with that candidate's color using the `scale_fill_manual`
 function:
-```{r dominant-candidate-map, eval=TRUE}
+```{r dominant-candidate-map,eval = False}
 #create a column with the name of the dominant candidate
 westeros_voting$dominant <- ifelse(westeros_voting$Jon_Snow_pct > westeros_voting$Daenerys_Targaryen_pct, 
                                   "Jon Snow", "Daenerys Targaryen")
@@ -1041,7 +1041,7 @@ ggplot() +
 In some cases, you may not just be interested in who won each region, but additionally 
 by how much. To map this, first determine the margin of victory and add a column 
 containing how strong of a victory they had:
-```{r margin-of-victory, eval=TRUE}
+```{r margin-of-victory,eval = False}
 #calculate margin of victory
 westeros_voting$margin <- abs(westeros_voting$Jon_Snow_pct - westeros_voting$Daenerys_Targaryen_pct)
 
@@ -1057,7 +1057,7 @@ Using the information you gained above, you can now develop your "fill rule" and
 select the color that corresponds to each instance. In this case, your "fill rule" 
 consists of the winner of each region (ie. Jon Snow) and how high of a margin of 
 victory they had (ie. High):
-```{r margin-rule, eval=TRUE}
+```{r margin-rule,eval = False}
 #make a fill rule (ie. Jon Snow - High)
 westeros_voting$marg_fill <- paste(westeros_voting$dominant, westeros_voting$margin_bin, sep = " - ")
 
@@ -1092,7 +1092,7 @@ more difficult than simply using the `labs` function.
 To add region labels, your first step is to convert your data to an simple feature,
 also known as an sf, object. This will allow for the calculation of where your 
 labels will sit on your map:
-```{r convert-data, eval=TRUE}
+```{r convert-data,eval = False}
 #convert to sf
 westeros_voting_sf <- st_as_sf(westeros_voting)
 ```
@@ -1101,7 +1101,7 @@ Your second step is to determine where your region labels will sit on your map!
 This is completed by calculating the `r gdef('centroid', 'centroids')`, or center 
 points, of each region. Below, we will calculate the centroid of each region and 
 convert its x and y coordinates to columns for easier access:
-```{r calc-coordinates, eval=TRUE}
+```{r calc-coordinates,eval = False}
 #calculate centroid
 region_centroids <- st_centroid(westeros_voting_sf)
 
@@ -1123,7 +1123,7 @@ information (like size and bold/italics)!
 Additionally, it's important to note that we need to use `westeros_voting_sf` as 
 the data for the map instead of `westeros_voting`. This will ensure that the region 
 labels will properly sit on their proper locations!
-```{r map-with-labels, eval=TRUE}
+```{r map-with-labels,eval = False}
 #create a map with the specified coloring
 ggplot() +
   geom_sf(data = westeros_voting_sf, aes(fill = dominant)) +
@@ -1264,7 +1264,7 @@ prop_hour_device %>%
 ```
 
 These themes can also be applied to maps, as seen below:
-```{r got-map-theme1, eval=TRUE}
+```{r got-map-theme1,eval = False}
 ggplot() +
   geom_sf(data = westeros_voting, aes(fill = dominant)) +
   scale_fill_manual(name = "Dominant Candidate", values = dom_color) +

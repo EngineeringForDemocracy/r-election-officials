@@ -5,7 +5,7 @@ exercises: 35
 source: Rmd
 ---
 
-```{r glosario, include=FALSE}
+```{r glosario, include=FALSE,eval = False}
 library('sf')
 library(glosario)
 ```
@@ -47,7 +47,7 @@ We start by loading the required packages: **`tidyverse`** and **`lubridate`**.
 As you may recall, **`ggplot2`** is included in the **`tidyverse`** package, so 
 we do not need to load **`ggplot2`** in separately.
 
-```{r load-package, message=FALSE, purl=FALSE}
+```{r load-package, message=FALSE, purl=FALSE,eval = False}
 library(tidyverse)
 library(here)
 library(lubridate) 
@@ -58,7 +58,7 @@ version of the data we created at the end of "Starting With Data".
 In practice, sampling data before visualization is NOT required; however, due to 
 the size of our original data set, using a smaller, sampled data set will allow 
 us to generate plots much faster!
-```{r,eval = False, message=FALSE, purl=FALSE}
+```{r,eval = False, message=FALSE, purl=FALSE,eval = False}
 data <- read_csv(here("data", "checkin_sample_plotting.csv"))
 ```
 
@@ -88,7 +88,7 @@ them can be cumbersome compared to **`ggplot2`**.
 
 Example of a simple `r gdef('time_series', 'time series')` plot in base R showing 
 the number of check-ins by hour:
-```{r, purl=FALSE}
+```{r, purl=FALSE,eval = False}
 hourly_counts <- data %>%
                  count(hour)
 
@@ -103,11 +103,11 @@ plot(hourly_counts$hour, hourly_counts$n,
 Lattice is another plotting system in R, which allows for creating multi-panel plots easily. It's different from ggplot2 because you define the entire plot in a single function call, and modifications after plotting are limited.
 
 Example of a lattice plot showing check-ins by device for different locations:
-```{r lattice, message=FALSE, purl=FALSE}
+```{r lattice, message=FALSE, purl=FALSE,eval = False}
 library(lattice)
 ```
 
-```{r, purl=FALSE}
+```{r, purl=FALSE,eval = False}
 #grabs specific locations (so the graph isn't giant) and converts locations + devices to factors
 checkins_lattice <- data %>%
                     filter(location %in% c("LOCATION_001", "LOCATION_002", "LOCATION_003")) %>%
@@ -198,7 +198,7 @@ data %>%
 
 To add a geom to the plot use the `+` operator. Let's start by creating a bar 
 chart showing the distribution of check-ins across precincts:
-```{r first-ggplot, purl=FALSE}
+```{r first-ggplot, purl=FALSE,eval = False}
 data %>%
   ggplot(aes(x = precinct)) +
   geom_bar()
@@ -251,7 +251,7 @@ Building plots with **`ggplot2`** is typically an iterative process. We start by
 defining the data set we'll use, lay out the axes, and choose a geom.
 
 Let's re-create the time-series plot we made for the Base-R demonstration:
-```{r create-time-series, purl=FALSE}
+```{r create-time-series, purl=FALSE,eval = False}
 #using the hourly_counts we created, generate a time-series plot
 hourly_counts %>%
   ggplot(aes(x = hour, y = n)) +
@@ -262,7 +262,7 @@ additional information! For instance, when inspecting the plot, we can notice th
 it's a bit difficult to tell at first glance where each hour sits on the line.
 
 To resolve this, we will add points to the line to clearly indicate each hour:
-```{r time-series-points, purl=FALSE}
+```{r time-series-points, purl=FALSE,eval = False}
 hourly_counts %>%
   ggplot(aes(x = hour, y = n)) +
   geom_line() +
@@ -271,7 +271,7 @@ hourly_counts %>%
 
 Next, we will add colors for all of the points by specifying a `color` argument 
 inside the `geom_point` function:
-```{r adding-colors, purl=FALSE}
+```{r adding-colors, purl=FALSE,eval = False}
 hourly_counts %>%
   ggplot(aes(x = hour, y = n)) +
   geom_line() +
@@ -287,7 +287,7 @@ color corresponding to the different values of the variable.
 
 Let's apply this to our plot below, changing the color of each point based on 
 the hour:
-```{r change-colors, purl=FALSE}
+```{r change-colors, purl=FALSE,eval = False}
 hourly_counts %>%
   ggplot(aes(x = hour, y = n)) +
   geom_line() +
@@ -309,7 +309,7 @@ column to our hourly_counts tibble that indicates whether the count at that
 hour is above or below the calculated average! Then, we will use the `scale_color_manual` 
 function to manually color these points green and red instead of the default (which,
 when writing this lesson, was red and blue, respectively).
-```{r avg-colors, purl=FALSE}
+```{r avg-colors, purl=FALSE,eval = False}
 #calculate average
 average <- mean(hourly_counts$n)
 
@@ -324,7 +324,7 @@ hourly_counts %>%
 
 Additionally, you may want to increase the size of the points! This can be accomplished 
 using the `size` argument within the `geom_point` function, as seen below:
-```{r scalepts, purl=FALSE}
+```{r scalepts, purl=FALSE,eval = False}
 #calculate average
 average <- mean(hourly_counts$n)
 
@@ -354,7 +354,7 @@ The `labs` function takes the following arguments:
 - `...` -- any pair of name and value for aesthetics used in the plot (e.g.,
   `x`, `y`, `fill`, `color`, `size`)
 
-```{r barplot-wall-types-labeled, fig.alt="Previous plot with plot title and labells added."}
+```{r barplot-wall-types-labeled,eval = False, fig.alt="Previous plot with plot title and labells added."}
 hourly_counts %>%
   mutate(avg_color = ifelse(n > average, "Above", "Below")) %>%
   ggplot(aes(x = hour, y = n)) +
@@ -375,7 +375,7 @@ is numeric (or continuous!). Within this function, you can control the axis limi
 (or range) and breaks (where tick marks appear).
 
 Let's finish our plot using this function:
-```{r barplot-wall-types-labeled2, fig.alt="Previous plot with plot title and labels added."}
+```{r barplot-wall-types-labeled2,eval = False, fig.alt="Previous plot with plot title and labels added."}
 hourly_counts %>%
   mutate(avg_color = ifelse(n > average, "Above", "Below")) %>%
   ggplot(aes(x = hour, y = n)) +
@@ -393,7 +393,7 @@ While the plot above gives information on the number of check-ins across *all*
 locations, we may want information unique to individual locations instead. To achieve 
 this, using the information above, we can calculate the amount of check-ins every hour and 
 add a line for each of the first five locations below:
-```{r checkin-rate}
+```{r checkin-rate,eval = False}
 #calculate check-ins per hour for each location
 hourly_count <- data %>%
   count(location, hour)
@@ -418,7 +418,7 @@ support from employees/volunteers), whereas LOCATION_002 dies down after 11AM.
 
 We can use box plots to visualize the distribution of check-in times for specific 
 locations:
-```{r boxplot, purl=FALSE}
+```{r boxplot, purl=FALSE,eval = False}
 data %>%
   filter(location %in% c("LOCATION_001", "LOCATION_002", "LOCATION_003", "LOCATION_004", "LOCATION_005")) %>%
   ggplot(aes(x = location, y = hour)) +
@@ -429,7 +429,7 @@ As you may notice, it's a bit difficult to understand this plot at first glance!
 To resolve this, let's begin by adding all of the hours on the y-axis using the 
 `scale_y_continuous` function! This function behaves the exact same as the `scale_x_continuous` 
 function, but it applies to the y-axis instead:
-```{r boxplot-with-ticks, purl=FALSE}
+```{r boxplot-with-ticks, purl=FALSE,eval = False}
 data %>%
   filter(location %in% c("LOCATION_001", "LOCATION_002", "LOCATION_003", "LOCATION_004", "LOCATION_005")) %>%
   ggplot(aes(x = location, y = hour)) +
@@ -439,7 +439,7 @@ data %>%
 
 By adding points to a box plot, we can have a better idea of the number of
 measurements and of their distribution:
-```{r boxplot-with-point, purl=FALSE}
+```{r boxplot-with-point, purl=FALSE,eval = False}
 data %>%
   filter(location %in% c("LOCATION_001", "LOCATION_002", "LOCATION_003", "LOCATION_004", "LOCATION_005")) %>%
   ggplot(aes(x = location, y = hour)) +
@@ -471,7 +471,7 @@ With that being said, we're going to change the `alpha` to 0.5. in an attempt to
 help fix the overplotting. As you may quickly notice, the overplotting is not solved, 
 but adding transparency begins to address this problem, as the points where there 
 are more overlapping observations are darker (as opposed to lighter red):
-```{r boxplot-with-alpha, purl=FALSE}
+```{r boxplot-with-alpha, purl=FALSE,eval = False}
 data %>%
   filter(location %in% c("LOCATION_001", "LOCATION_002", "LOCATION_003", "LOCATION_004", "LOCATION_005")) %>%
   ggplot(aes(x = location, y = hour)) +
@@ -493,7 +493,7 @@ true value of the observation.
 
 We can jitter our points using the `geom_jitter()` function instead of the
 `geom_point()` function, as seen below:
-```{r boxplot-with-jitter, purl=FALSE}
+```{r boxplot-with-jitter, purl=FALSE,eval = False}
 data %>%
   filter(location %in% c("LOCATION_001", "LOCATION_002", "LOCATION_003", "LOCATION_004", "LOCATION_005")) %>%
   ggplot(aes(x = location, y = hour)) +
@@ -512,7 +512,7 @@ values to see how your plot changes!
 
 Here, we initially chose a height of 0.05 (as too much variation in height may 
 suggest different times at first glance) and a width of 0.2:
-```{r boxplot-width-height, purl=FALSE}
+```{r boxplot-width-height, purl=FALSE,eval = False}
 data %>%
   filter(location %in% c("LOCATION_001", "LOCATION_002", "LOCATION_003", "LOCATION_004", "LOCATION_005")) %>%
   ggplot(aes(x = location, y = hour)) +
@@ -526,7 +526,7 @@ of the plot overall! Additionally, to clean the location names on the x-axis, we
 be using the `mutate` function (recall from Data Wrangling with dplyr) 
 to remove the "LOCATION_" prefix from each name (since the axis label will indicate
 that these are locations!):
-```{r boxplot-pretty, purl=FALSE}
+```{r boxplot-pretty, purl=FALSE,eval = False}
 data %>%
   filter(location %in% c("LOCATION_001", "LOCATION_002", "LOCATION_003", "LOCATION_004", "LOCATION_005")) %>%
   mutate(location = str_remove(location, "LOCATION_")) %>% #removes prefix
@@ -555,7 +555,7 @@ Start by replacing the box plot with a violin plot; see `geom_violin()`.
 
 ## Solution
 
-```{r violin-plot}
+```{r violin-plot,eval = False}
 data %>%
   filter(location %in% c("LOCATION_001", "LOCATION_002", "LOCATION_003", "LOCATION_004", "LOCATION_005")) %>%
   mutate(location = str_remove(location, "LOCATION_")) %>%
@@ -583,7 +583,7 @@ labels are added.
 
 ## Solution
 
-```{r boxplot-exercise}
+```{r boxplot-exercise,eval = False}
 data %>%
   filter(location %in% c("LOCATION_001", "LOCATION_002", "LOCATION_003", "LOCATION_004", "LOCATION_005")) %>%
   mutate(location = str_remove(location, "LOCATION_")) %>%
@@ -605,7 +605,7 @@ legend).
 
 ## Solution
 
-```{r boxplot-exercise-color}
+```{r boxplot-exercise-color,eval = False}
 data %>%
   filter(location %in% c("LOCATION_001", "LOCATION_002", "LOCATION_003", "LOCATION_004", "LOCATION_005")) %>%
   mutate(location = str_remove(location, "LOCATION_")) %>%
@@ -631,7 +631,7 @@ By default, `geom_bar` accepts a variable for x, and plots the number of instanc
 of each value of x (in this case, location) within the data set.
 
 Let's create a bar plot displaying check-in counts for the first five locations:
-```{r barplot-1}
+```{r barplot-1,eval = False}
 data %>%
   filter(location %in% c("LOCATION_001", "LOCATION_002", "LOCATION_003", "LOCATION_004", "LOCATION_005")) %>%
   mutate(location = str_remove(location, "LOCATION_")) %>%
@@ -644,7 +644,7 @@ data %>%
 
 Next, let's use the `fill` aesthetic for the `geom_bar()` geom to color bars by
 the device used for check-in:
-```{r barplot-stack}
+```{r barplot-stack,eval = False}
 data %>%
   filter(location %in% c("LOCATION_001", "LOCATION_002", "LOCATION_003", "LOCATION_004", "LOCATION_005")) %>%
   mutate(location = str_remove(location, "LOCATION_")) %>%
@@ -663,7 +663,7 @@ correspond to each device and put them side-by-side by using the `position`
 argument for `geom_bar()` and setting it to "dodge".
 
 Let's apply this concept to the code below, changing the title for clarity:
-```{r barplot-dodge}
+```{r barplot-dodge,eval = False}
 data %>%
   filter(location %in% c("LOCATION_001", "LOCATION_002", "LOCATION_003", "LOCATION_004", "LOCATION_005")) %>%
   mutate(location = str_remove(location, "LOCATION_")) %>%
@@ -685,7 +685,7 @@ on distribution within specific locations! To compare proportions, we will first
 create a new tibble (`prop_device`) with a new column named "prop", 
 representing the percent of each device within each location.
 
-```{r percent-device-data}
+```{r percent-device-data,eval = False}
 prop_device <- data %>%
   filter(location %in% c("LOCATION_001", "LOCATION_002", "LOCATION_003", "LOCATION_004", "LOCATION_005")) %>%
   count(location, device) %>%
@@ -698,7 +698,7 @@ Now, we can use this new tibble to create our plot showing the *proportion*
 of each device at each location! When creating your plot, ensure you include `y = prop` 
 within the initial ggplot call AND `stat = "identity"` to tell ggplot to use the 
 y values instead of the count, and adjust labels/titles for clarity: 
-```{r barplot-device-percent}
+```{r barplot-device-percent,eval = False}
 prop_device %>%
   filter(location %in% c("LOCATION_001", "LOCATION_002", "LOCATION_003", "LOCATION_004", "LOCATION_005")) %>%
   mutate(location = str_remove(location, "LOCATION_")) %>%
@@ -1074,7 +1074,7 @@ marg_color <- c(
 
 Your final step is to combine your fill rule and chosen colors with your mapping 
 information, creating your margin of victory map:
-```{r margin-map}
+```{r margin-map,eval = False}
 #create margin of victory map
 ggplot() +
   geom_sf(data = westeros_voting, aes(fill = marg_fill)) +
@@ -1163,7 +1163,7 @@ To complete this map, use the following steps:
 
 ## Solution
 
-```{r map-solution}
+```{r map-solution,eval = False}
 #read in data
 checkin_data <- read_csv(here("data", "avg_checkins.csv"))
 
@@ -1212,7 +1212,7 @@ on the right and navigating to the `theme` help page (Help > Packages > ggplot2 
 
 Below, we will be applying a few of these customizations to a plot from earlier 
 in the lesson:
-```{r ggplot-customization-advanced, purl=FALSE}
+```{r ggplot-customization-advanced, purl=FALSE,eval = False}
 prop_device %>%
   filter(location %in% c("LOCATION_001", "LOCATION_002", "LOCATION_003", "LOCATION_004", "LOCATION_005")) %>%
   mutate(location = str_remove(location, "LOCATION_")) %>%
@@ -1240,7 +1240,7 @@ before doing so..
 
 Additionally, you like the changes you created better than the default themes, you 
 can save your changes as a custom theme for application to other plots:
-```{r ggplot-custom-themes, purl=FALSE}
+```{r ggplot-custom-themes, purl=FALSE,eval = False}
 my_theme <- theme_bw() +
   theme(
     text = element_text(size = 12),

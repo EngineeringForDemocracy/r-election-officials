@@ -775,9 +775,11 @@ From this plot, we can identify that DEVICE_001 has the highest proportion at
 
 :::::::::::::::::::::::::
 
+::::::::::::::::::::::::::::::::::::::: 
+
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge Exercise
+## Exercise
 
 Create a bar plot showing the check-in counts for the ten devices with the highest 
 number of check-ins. Color each bar according to the device, title it appropriately, 

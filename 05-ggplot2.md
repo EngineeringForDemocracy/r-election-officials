@@ -9,15 +9,8 @@ source: Rmd
 
 
 
-:::: instructor
 
-- This episode is a broad overview of ggplot2 and focuses on getting
-  familiar with the layering system of ggplot2, using the argument `group`
-  in the `aes()` function, and basic customization of the plots.
-- We'll show how to visualize patterns in check-in behavior across different 
-  locations and devices, and introduce mapping techniques.
 
-::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
@@ -41,6 +34,16 @@ source: Rmd
 - How can I visualize location data on maps with ggplot2?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+This episode is a broad overview of ggplot2 and focuses on getting
+  familiar with the layering system of ggplot2, using the argument `group`
+  in the `aes()` function, and basic customization of the plots.
+We'll show how to visualize patterns in check-in behavior across different 
+  locations and devices, and introduce mapping techniques.
+
+
 
 We start by loading the required packages: **`tidyverse`** and **`lubridate`**.
 As you may recall, **`ggplot2`** is included in the **`tidyverse`** package, so 
@@ -601,18 +604,17 @@ data %>%
 
 :::::::::::::::::::::::::
 
+:::::::::::::::::::::::::::::::::::::::  
+
 So far, we've looked at the distribution of check-in times between locations. 
 Next, you're going to try making a new plot to explore the distribution of another 
 variable between locations.
 
-Create a box plot for `minute` for the locations above. Overlay a jitter layer to 
+Let's create a box plot for `minute` for the locations above. Overlay a jitter layer to 
 on the box plot layer to display the distributions more accurately. Feel free to 
 select any fill, color, alpha, height, and width! Ensure a title and proper axis 
 labels are added.
 
-:::::::::::::::  solution
-
-## Solution
 
 
 ``` r
@@ -627,7 +629,7 @@ data %>%
        y = "Minute of Check-in")
 ```
 
-:::::::::::::::::::::::::
+
 
 Lastly, color each point according to the device used! Ensure you change the name 
 of the legend as well and remove "DEVICE_" from all device names (to ensure a clean 
@@ -654,7 +656,7 @@ data %>%
 
 :::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 ## Bar Plot
 
@@ -811,9 +813,11 @@ From this plot, we can identify that DEVICE_001 has the highest proportion at
 
 :::::::::::::::::::::::::
 
+::::::::::::::::::::::::::::::::::::::: 
+
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge Exercise
+## Exercise
 
 Create a bar plot showing the check-in counts for the ten devices with the highest 
 number of check-ins. Color each bar according to the device, title it appropriately, 
@@ -1198,7 +1202,7 @@ to the size of the map in your local version of R. To resolve this, you can expo
 the map at a larger size using `ggsave` (which will be covered at the end of this 
 lesson!).
 
-::::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 

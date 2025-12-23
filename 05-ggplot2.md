@@ -74,7 +74,8 @@ glimpse(data)
 ```
 
 ``` error
-Error in glimpse(data): could not find function "glimpse"
+Error in `glimpse()`:
+! could not find function "glimpse"
 ```
 
 As you may notice, the house exceeds 12, meaning this data is in 24 hour time! If 
